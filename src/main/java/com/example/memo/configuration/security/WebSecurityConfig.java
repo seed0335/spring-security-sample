@@ -52,7 +52,7 @@ public class WebSecurityConfig {
 				SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(httpRequests -> httpRequests
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-				.requestMatchers("/api/members/signup").permitAll()
+				.requestMatchers("/api/members/**").permitAll()
 				.anyRequest().authenticated());
 
 		return httpSecurity.build();
