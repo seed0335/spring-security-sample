@@ -1,5 +1,7 @@
 package com.example.memo.domain.model;
 
+import static com.example.memo.configuration.security.WebSecurityConfig.ROLE_MEMBER;
+
 import com.example.memo.domain.entity.Member;
 import java.util.Collections;
 import lombok.Getter;
@@ -13,7 +15,7 @@ public class AuthorizedMember extends User {
 
 	public AuthorizedMember(Member member) {
 		super(member.getEmail(), member.getPassword(),
-			Collections.singletonList(new SimpleGrantedAuthority("ROLE_MEMBER")));
+			Collections.singletonList(new SimpleGrantedAuthority(ROLE_MEMBER)));
 		this.member = member;
 	}
 }

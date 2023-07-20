@@ -1,4 +1,6 @@
 package com.example.memo.dto;
 
-public record LoginRequest(String email, String password) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record LoginRequest(@JsonProperty("username") String email, String password) {
 }

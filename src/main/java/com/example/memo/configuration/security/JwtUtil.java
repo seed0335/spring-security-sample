@@ -1,5 +1,7 @@
 package com.example.memo.configuration.security;
 
+import static com.example.memo.configuration.security.WebSecurityConfig.ROLE_MEMBER;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -33,7 +35,7 @@ public class JwtUtil {
 		return BEARER_PREFIX +
 			Jwts.builder()
 				.setSubject(username) // 사용자 식별자값(ID)
-				.claim(AUTHORIZATION_KEY, "ROLE_MEMBER") // 사용자 권한
+				.claim(AUTHORIZATION_KEY, ROLE_MEMBER) // 사용자 권한
 				.setExpiration(new Date(now.getTime() + TOKEN_DURATION)) // 만료 시간
 				.setIssuedAt(now) // 발급일
 				.signWith(key, signatureAlgorithm) // 암호화 알고리즘
