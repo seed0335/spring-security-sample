@@ -1,5 +1,6 @@
 package com.example.memo.configuration.security;
 
+import com.example.memo.service.RememberMeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,7 @@ public class WebSecurityConfig {
 	public static final String ROLE_MEMBER = "ROLE_MEMBER";
 	private final AuthenticationConfiguration authenticationConfiguration;
 	private final AuthorizedMemberProvider authorizedMemberProvider;
+	private final RememberMeService rememberMeService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -32,6 +34,7 @@ public class WebSecurityConfig {
 	public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
 		JwtAuthenticationFilter filter = new JwtAuthenticationFilter();
 		filter.setAuthenticationManager(authenticationConfiguration.getAuthenticationManager());
+		filter.setRememberMeServices(rememberMeService);
 		return filter;
 	}
 
@@ -46,6 +49,7 @@ public class WebSecurityConfig {
 			.httpBasic(AbstractHttpConfigurer::disable)
 			.csrf(AbstractHttpConfigurer::disable)
 			.formLogin(Customizer.withDefaults())
+			.rememberMe(configurer -> configurer.rememberMeServices(rememberMeService))
 			.addFilter(jwtAuthenticationFilter())
 			.addFilterAfter(jwtAuthorizationFilter(), JwtAuthenticationFilter.class)
 			.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(

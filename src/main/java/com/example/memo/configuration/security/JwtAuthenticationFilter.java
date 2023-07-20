@@ -26,6 +26,8 @@ class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 			return;
 		}
 
+		getRememberMeServices().loginSuccess(request, response, authResult);
+
 		response.setStatus(HttpServletResponse.SC_CREATED);
 		response.getWriter().write(jwtToken);
 	}
