@@ -18,7 +18,8 @@ class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 			return;
 		}
 
-		String jwtToken = JwtUtil.createToken(authResult.getName());
+		String tokenWithScheme = JwtUtil.createTokenWithScheme(authResult.getName());
+		String jwtToken = JwtUtil.getToken(tokenWithScheme);
 
 		if (!JwtUtil.validateToken(jwtToken)) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

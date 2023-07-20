@@ -38,6 +38,6 @@ public class MemberService {
 			throw new BadCredentialsException("잘못된 요청입니다. 아이디 또는 비밀번호를 확인해주세요.");
 		}
 
-		return JwtUtil.createToken(loginRequest.email());
+		return JwtUtil.createTokenWithScheme(loginRequest.email());
 	}
 }

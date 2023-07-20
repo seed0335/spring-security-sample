@@ -29,7 +29,7 @@ public class JwtUtil {
 	private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 	private final Key key = Keys.secretKeyFor(signatureAlgorithm);
 
-	public String createToken(String username) {
+	public String createTokenWithScheme(String username) {
 		Date now = new Date();
 
 		return BEARER_PREFIX +
@@ -40,6 +40,13 @@ public class JwtUtil {
 				.setIssuedAt(now) // 발급일
 				.signWith(key, signatureAlgorithm) // 암호화 알고리즘
 				.compact();
+	}
+
+	public String getToken(String tokenWithScheme) {
+		if (tokenWithScheme.startsWith(BEARER_PREFIX)) {
+			return tokenWithScheme.substring(VALUE_INDEX);
+		}
+		return null;
 	}
 
 	public String getTokenFromHeader(HttpServletRequest request) {
