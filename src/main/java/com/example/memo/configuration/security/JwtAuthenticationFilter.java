@@ -32,6 +32,6 @@ class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	}
 }
